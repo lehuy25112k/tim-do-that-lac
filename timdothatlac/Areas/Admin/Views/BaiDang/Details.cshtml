@@ -1,0 +1,87 @@
+﻿@model ModalEF.EF.BaiDang
+@{
+    ViewBag.Title = "Chi tiết bài đăng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong>Chi tiết bài đăng</strong>  
+            </div>
+
+            <div class="card-body card-block ml-3">
+                @using (Html.BeginForm("Details", "BaiDang", FormMethod.Get))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Người tạo</strong></label>
+                        @Html.DropDownList("MaTaiKhoan", null, htmlAttributes: new { @class = "col-md-6 form-control", @disabled = "" })
+                        @Html.ValidationMessageFor(model => model.MaTaiKhoan, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Tiêu đề</strong></label>
+                        @Html.EditorFor(model => model.TieuDe, new { htmlAttributes = new { @class = "col-md-6 form-control", @disabled = "" } })
+                        @Html.ValidationMessageFor(model => model.TieuDe, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Nội dung</strong></label>
+                        @Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "col-md-6 form-control", @disabled = "" } })
+                        @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Danh mục</strong></label>
+                        @Html.DropDownList("MaDanhMuc", null, htmlAttributes: new { @class = "col-md-6 form-control", @disabled = "" })
+                        @Html.ValidationMessageFor(model => model.MaDanhMuc, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Trạng thái duyệt</strong></label>
+                        <input value="@Html.Raw(Model.TrangThaiDuyet ? "Đã duyệt" : "Chưa duyệt")" class="col-md-2 form-control" disabled />
+                        @Html.ValidationMessageFor(model => model.TrangThaiDuyet, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Trạng thái bài đăng</strong></label>
+                        @Html.DropDownList("MaTrangThaiBaiDang", null, htmlAttributes: new { @class = "col-md-6 form-control", @disabled = "" })
+                        @Html.ValidationMessageFor(model => model.MaTrangThaiBaiDang, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Ảnh bìa</strong></label>
+                        <div>
+                            @{
+                                if (Model.MaAnhDinhKem != null)
+                                {
+                                    <img src="~/FileUpload/@Model.AnhDinhKem.AnhBia" style="height: 240px; width: 240px" />
+                                }
+                                else
+                                {
+                                    <p>Chưa thêm ảnh đại diện</p>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-offset-2 col-md-5">
+                            <i class="menu-icon fa fa-arrow-circle-left"></i>
+                            @Html.ActionLink("Quay lại", "Index")
+                        </div>
+                        <div class="col-md-offset-2 col-md-5">
+                            <a href="/Admin/BaiDang/Edit/@Model.MaBaiDang" class="btn btn-success">Chỉnh sửa</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -23,6 +23,11 @@ namespace ModalEF.EF
 
         public DateTime? NgayTao { get; set; }
 
+        public int? LuotTim { get; set; }
+
+        [StringLength(50)]
+        public string AnhMinhHoa { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BaiDang> BaiDangs { get; set; }
     }

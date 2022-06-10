@@ -11,6 +11,7 @@ namespace timdothatlac.Controllers
 {
     public class LoginController : Controller
     {
+
         public LoginUserSession userSession = new LoginUserSession();
 
         // GET: Login
@@ -37,33 +38,41 @@ namespace timdothatlac.Controllers
                 else
                 {
                     var result = dao.Login(model.MailUser, Encryptor.MD5Hash(model.MatKhauUser));
-                    if (result == 1)
-                    {
-                        var user = dao.GetById(model.MailUser);
-                        userSession.MailUser = user.Email;
-                        userSession.MaUser = user.MaTaiKhoan;
-                        userSession.TenUser = user.Ten;
-                        userSession.QuyenUser = user.MaQuyen;
-
-                        Session.Add(Constant.USER_SESSION, userSession);
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else if (result == 0)
+                    if (result == 0)
                     {
                         ModelState.AddModelError("", "Email hoặc mật khẩu không chính xác!");
                     }
+                    else if (result == -1)
+                    {
+                        ModelState.AddModelError("", "Tài khoản đã bị khóa!");
+                    }
+                    else if (result == 1)
+                    {
+                        var user = dao.GetById(model.MailUser);
+                        userSession.MaUser = user.MaTaiKhoan;
+                        userSession.MailUser = user.Email;
+                        userSession.TenUser = user.Ten;
+                        userSession.QuyenUser = user.MaQuyen;
+                        userSession.Avatar = user.AnhDaiDien;
+
+                        Session.Add(Constant.USER_SESSION, userSession);
+                        if (user.MaQuyen.ToString().Contains("1"))
+                        {
+                            return RedirectToAction("Index", "HomeDashboard", routeValues: new { Area = "Admin" });
+                        }
+                        else { return RedirectToAction("Index", "Home"); }
+                    }
                 }
-
-
-
             }
             return View("Index");
         }
+
         //Đăng xuất
         public ActionResult Logout()
         {
             Session[Constant.USER_SESSION] = null;
-            return Redirect("/");
+            return RedirectToAction("Index", "Login", routeValues: new { Area = "" });
+            //return Redirect("/");
         }
     }
 }

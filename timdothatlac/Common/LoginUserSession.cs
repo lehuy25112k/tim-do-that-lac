@@ -12,5 +12,6 @@ namespace timdothatlac.Common
         public string MailUser { set; get; }
         public string MatKhauUser { set; get; }
         public int? QuyenUser { set; get; }
+        public string Avatar { get; set; }
     }
 }

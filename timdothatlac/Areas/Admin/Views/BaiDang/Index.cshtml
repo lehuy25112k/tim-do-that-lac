@@ -1,0 +1,87 @@
+﻿@model PagedList.IPagedList<ModalEF.EF.BaiDang>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Danh sách bài đăng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Quản lý bài đăng</h2>
+
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Danh sách bài đăng</strong>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("Index", "BaiDang", FormMethod.Get))
+                        {
+                            <div class="row form-group">
+                                <div class="col-lg-12">
+
+                                    <div class="col-md-6">
+                                        <div class="form-inline">
+                                            <input type="text" value="@ViewBag.SearchString" class="form-control" name="searchString" placeholder="Nhập thông tin" />
+                                            <button type="submit" class="btn btn-warning" style="margin-left:20px">Tìm kiếm</button>
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                    <div class="col-md-6">
+                                        <a class="btn btn-success" href="@Url.Action("Create", "BaiDang")"><i class="menu-icon fa fa-plus"></i> Tạo bài đăng</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tiêu đề</th>
+                                        <th>Nội dung</th>
+                                        <th>Người tạo</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Trạng thái duyệt</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr id="row_@item.MaBaiDang">
+                                            <td>@item.TieuDe</td>
+                                            <td>@item.NoiDung</td>
+                                            <td>@item.TaiKhoan.Ten</td>
+                                            <td>@item.NgayTao</td>
+                                            <td><a href="#" class="btn-active" data-id="@item.MaBaiDang">@Html.Raw(item.TrangThaiDuyet ? "Đã duyệt" : "Chưa duyệt")</a></td>
+                                            <td>
+                                                <a href="/Admin/BaiDang/Details/@item.MaBaiDang" class="btn-sm btn-info">Xem chi tiết</a>
+
+                                                <a href="/Admin/BaiDang/Edit/@item.MaBaiDang" class="btn-sm btn-success">Chỉnh sửa</a>
+
+                                                @Ajax.ActionLink("Xoá", "Delete", new { @id = item.MaBaiDang }, new AjaxOptions
+                                           {
+                                               Confirm = "Bạn có muốn xoá bản ghi này?",
+                                               OnComplete = "$('#row_" + @item.MaBaiDang + "').remove()",
+                                               HttpMethod = "Delete"
+                                           }, new {@class="btn-sm btn-danger"})
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Admin/Assets/js/controller/BaiDangController.js"></script>
+
+

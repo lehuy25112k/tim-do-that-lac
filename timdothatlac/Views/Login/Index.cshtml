@@ -1,7 +1,74 @@
-﻿
+﻿@model timdothatlac.Models.LoginModel
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
-<h2>Index</h2>
+<!doctype html>
+<html lang="vi-vn">
+<head>
+    <title>Đăng nhập - Tìm đồ thất lạc</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Assets/img/favicon1.ico">
+    <link rel="stylesheet" href="~/Assets/Login/css/style.css">
+</head>
+
+<body>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-6">
+                    <div class="wrap">
+                        <div class="img" style="background-image: url(/Assets/Login/images/bg-1.jpg);"></div>
+                        <div class="login-wrap p-4 p-md-5">
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    <h3 class="mb-4">Đăng nhập</h3>
+                                </div>
+                            </div>
+                            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                            {
+                                <form action="#" class="signin-form">
+                                    <div class="form-group mt-3">
+                                        @Html.TextBoxFor(model => model.MailUser, new { @class = "form-control", @autofocus = "autofocus", @type = "text", @placeholder = "Nhập email" })
+                                        <label class="form-control-placeholder" for="username">Email</label>
+                                    </div>
+                                    <div class="form-group" id="wrap-pass">
+                                        @Html.PasswordFor(model => model.MatKhauUser, new { @class = "form-control", @id = "password-field", @type = "password", @placeholder = "Nhập mật khẩu" })
+                                        <label class="form-control-placeholder" for="password">Mật khẩu</label>
+                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                    </div>
+                                    <div> @Html.ValidationSummary(false, "", new { @class = "text-danger" })</div>
+                                    <div class="form-group">
+                                        <button type="submit" class="form-control btn btn-primary rounded submit px-3">Đăng nhập</button>
+                                    </div>
+                                    <div class="form-group d-md-flex">
+                                        <div class="w-50 text-left">
+                                            <label class="checkbox-wrap checkbox-primary mb-0">
+                                                Giữ đăng nhập
+                                                <input type="checkbox" checked>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        <div class="w-50 text-md-right">
+                                            <a href="#">Quên mật khẩu?</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            }
+                            <p class="text-center">Bạn chưa có tài khoản? <a href="@Url.Action("Create", "Register")">Đăng ký ngay</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Assets/Login/js/jquery.min.js"></script>
+    <script src="~/Assets/Login/js/popper.js"></script>
+    <script src="~/Assets/Login/js/bootstrap.min.js"></script>
+    <script src="~/Assets/Login/js/main.js"></script>
+
+</body>
+</html>

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ModalEF.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using timdothatlac.Common;
 
 namespace timdothatlac.Controllers
 {
@@ -10,6 +12,10 @@ namespace timdothatlac.Controllers
     {
         public ActionResult Index()
         {
+            var baiDangDao = new BaiDangDao();
+            var danhMucDao = new DanhMucDao();
+            ViewBag.ListFeatureBaiDangs = baiDangDao.ListFeatureBaiDang(3);
+            ViewBag.ListFeatureDanhMucs = danhMucDao.ListFeatureDanhMuc(3);
             return View();
         }
 
@@ -25,6 +31,13 @@ namespace timdothatlac.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        //Đăng xuất
+        public ActionResult Logout()
+        {
+            Session[Constant.USER_SESSION] = null;
+            return Redirect("/");
         }
     }
 }

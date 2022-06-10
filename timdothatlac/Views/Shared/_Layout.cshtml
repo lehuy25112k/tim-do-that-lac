@@ -7,20 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon1.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Assets/img/favicon1.ico">
 
     <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Assets/css/templatemo.css">
     <link rel="stylesheet" href="~/Assets/css/custom.css">
 
-    <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="~/Assets/css/fontawesome.min.css">
-
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Start Top Nav -->
+
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
             <div class="w-100 d-flex justify-content-between">
@@ -28,7 +27,7 @@
                     <i class="fa fa-envelope mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="https://www.facebook.com/LeHuy79999">admin@timdothatlac.vn</a>
                     <i class="fa fa-phone mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">0343 599 589</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">0786 006 726</a>
                 </div>
                 <div>
                     <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
@@ -39,12 +38,11 @@
             </div>
         </div>
     </nav>
-    <!-- Close Top Nav -->
-    <!-- Header -->
+
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="@Url.Action("Index", "Home")">
                 Timdothatlac.vn
             </a>
 
@@ -56,47 +54,45 @@
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Trang chủ</a>
+                            <a class="nav-link" href="@Url.Action("Index", "BaiDangs")">Tìm đồ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">Tìm đồ</a>
+                            <a class="nav-link" href="@Url.Action("Contact", "Home")">Liên hệ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Liên hệ</a>
+                            <a class="nav-link" href="@Url.Action("About", "Home")">Về chúng tôi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Về chúng tôi</a>
+                            <a class="nav-link btn btn-warning" href="@Url.Action("Create", "BaiDang")"><i class="fa fa-fw fa-edit mr-4"></i>Đăng bài</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
-                    </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
-                    </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
-                    </a>
+                    @{
+                        var session = (timdothatlac.Common.LoginUserSession)Session[timdothatlac.Common.Constant.USER_SESSION];
+                        if (session != null)
+                        {
+                            <a class="nav-icon position-relative text-decoration-none" href="@Url.Action("Index", "TaiKhoan")">
+                                <small>@session.TenUser</small>
+                                <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                            </a>
+
+                        }
+                        else
+                        {
+                            <a class="nav-icon position-relative text-decoration-none" href="@Url.Action("Index", "Login")">
+                                <span><small>Đăng nhập</small></span>
+                                <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                            </a>
+                        }
+                    }
                 </div>
             </div>
-
         </div>
     </nav>
-    <!-- Close Header -->
+
     @RenderBody()
-    <!-- Start Footer -->
+
     <footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">
             <div class="row">
@@ -187,14 +183,12 @@
         </div>
 
     </footer>
-    <!-- End Footer -->
-    <!-- Start Script -->
+
     <script src="~/Assets/js/jquery-1.11.0.min.js"></script>
     <script src="~/Assets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="~/Assets/js/bootstrap.bundle.min.js"></script>
     <script src="~/Assets/js/templatemo.js"></script>
     <script src="~/Assets/js/custom.js"></script>
-    <!-- End Script -->
-</body>
 
+</body>
 </html>

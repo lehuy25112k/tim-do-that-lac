@@ -1,7 +1,137 @@
-﻿@model IEnumerable<ModalEF.EF.DanhMuc>
-
-@{
-    ViewBag.Title = "Home Page";
+﻿@{
+    ViewBag.Title = "Trang chủ";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var listFeatureBaiDangs = (List<ModalEF.EF.BaiDang>)ViewBag.ListFeatureBaiDangs;
+    var listFeatureDanhMucs = (List<ModalEF.EF.DanhMuc>)ViewBag.ListFeatureDanhMucs;
 }
-<p>abcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</p>
+
+
+<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="~/Assets/img/banner_img_02.jpg" alt="">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left align-self-center">
+                            <h1 class="h1 text-success"><b>Tìm đồ thất lạc</b> timdothatlac.vn</h1>
+                            <h3 class="h2">Chúng tôi cung cấp dịch vụ abc....</h3>
+                            <p>
+                                Tìm đồ thất lạc là abc
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="~/Assets/img/banner_img_02.jpg" alt="">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left">
+                            <h1 class="h1">Chuyên nghiệp, hiện đại</h1>
+                            <h3 class="h2">Áp dụng chuyển đổi số, kết nối người mất đồ và người nhặt được đồ</h3>
+                            <p>
+                                Kết nối abcd...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="~/Assets/img/banner_img_02.jpg" alt="">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left">
+                            <h1 class="h1">Hơn 100+ bài đăng mỗi ngày</h1>
+                            <h3 class="h2">Tìm đồ ngay </h3>
+                            <p>
+                                Mô tả abd
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+        <i class="fas fa-chevron-left"></i>
+    </a>
+    <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+        <i class="fas fa-chevron-right"></i>
+    </a>
+</div>
+
+
+<section class="container py-5">
+    <div class="row text-center pt-3">
+        <div class="col-lg-6 m-auto">
+            <h1 class="h1">Danh mục được tìm kiếm nhiều nhất</h1>
+            <p>
+                Những danh mục được quan tâm tìm kiếm nhiều nhất trong tháng qua
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var item in listFeatureDanhMucs)
+        {
+            <div class="col-12 col-md-4 p-5 mt-3">
+                <a href="#"><img src="~/FileUpload/@item.AnhMinhHoa" class="rounded-circle img-fluid border"></a>
+                <h5 class="text-center mt-3 mb-3">@item.TenDanhMuc</h5>
+                <p class="text-center"><a class="btn btn-success">Xem</a></p>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="bg-light">
+    <div class="container py-5">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">Bài đăng mới nhất</h1>
+                <p>
+                    Những bài đăng mới
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in listFeatureBaiDangs)
+            {
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100 p-2">
+                        <a href="">
+                            <img src="~/FileUpload/@item.AnhDinhKem.AnhBia" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    @item.TaiKhoan.Ten
+                                </li>
+                                <li class="text-muted text-right">Danh mục: @item.DanhMuc.TenDanhMuc</li>
+                            </ul>
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">@item.TieuDe</a>
+                            <p class="card-text">
+                                @item.NoiDung
+                            </p>
+                            <p class="text-muted">Tạo lúc @item.NgayTao</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

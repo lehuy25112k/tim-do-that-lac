@@ -35,7 +35,9 @@ namespace ModalEF.EF
 
         public DateTime? NgayDuyet { get; set; }
 
-        public bool? TrangThaiDuyet { get; set; }
+        public bool TrangThaiDuyet { get; set; }
+
+        public int? LuotXem { get; set; }
 
         public virtual AnhDinhKem AnhDinhKem { get; set; }
 
