@@ -141,7 +141,6 @@
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\LoginUserSession.cs" />
-    <Compile Include="Controllers\BaiDangs1Controller.cs" />
     <Compile Include="Controllers\BaiDangsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -464,11 +463,6 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Register\Create.cshtml" />
     <Content Include="Views\BaiDangs\Index.cshtml" />
-    <Content Include="Views\BaiDangs1\Create.cshtml" />
-    <Content Include="Views\BaiDangs1\Delete.cshtml" />
-    <Content Include="Views\BaiDangs1\Details.cshtml" />
-    <Content Include="Views\BaiDangs1\Edit.cshtml" />
-    <Content Include="Views\BaiDangs1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
