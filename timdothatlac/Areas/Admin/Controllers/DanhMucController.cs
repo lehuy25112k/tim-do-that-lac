@@ -42,15 +42,26 @@ namespace timdothatlac.Areas.Admin.Controllers
 
                 //file 
                 string path = Server.MapPath("~/FileUpload");
-                string fileName = Path.GetFileName(file.FileName);
-                string pathFull = Path.Combine(path, fileName);
-                file.SaveAs(pathFull);
+                try
+                {
+                    if (file != null)
+                    {
+                        string fileName = Path.GetFileName(file.FileName);
+                        string pathFull = Path.Combine(path, fileName);
+                        file.SaveAs(pathFull);
+                        danhMuc.AnhMinhHoa = file.FileName;
+                    }
+                    else
+                    {
+                        danhMuc.AnhMinhHoa = null;
+                    }
 
-                danhMuc.NgayTao = DateTime.Now;
-                danhMuc.AnhMinhHoa = file.FileName;
-                danhMuc.LuotTim = 0;
-                db.DanhMucs.Add(danhMuc);
-                db.SaveChanges();
+                    danhMuc.NgayTao = DateTime.Now;
+                    danhMuc.LuotTim = 0;
+                    db.DanhMucs.Add(danhMuc);
+                    db.SaveChanges();
+                }
+                catch (Exception e) { }
                 return RedirectToAction("Index");
             }
 
@@ -74,12 +85,24 @@ namespace timdothatlac.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDanhMuc,TenDanhMuc,NgayTao")] DanhMuc danhMuc)
+        public ActionResult Edit([Bind(Include = "MaDanhMuc,TenDanhMuc,NgayTao")] DanhMuc danhMuc, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(danhMuc).State = EntityState.Modified;
-                db.SaveChanges();
+                string path = Server.MapPath("~/FileUpload");
+                try
+                {
+                    string fileName = Path.GetFileName(file.FileName);
+                    if (fileName != null)
+                    {
+                        string pathFull = Path.Combine(path, fileName);
+                        file.SaveAs(pathFull);
+                        danhMuc.AnhMinhHoa = file.FileName;
+                    }
+                    db.Entry(danhMuc).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch (Exception e) { }
                 return RedirectToAction("Index");
             }
             return View(danhMuc);

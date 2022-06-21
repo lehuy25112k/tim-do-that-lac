@@ -1,0 +1,56 @@
+﻿@model ModalEF.EF.BaiDang
+
+@{
+    ViewBag.Title = "Đăng bài";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card d-flex">
+            <div class="card-body card-block col-8 align-self-center">
+                @using (Html.BeginForm("Create", "BaiDangs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row form-group my-3">
+                        <label class="pr-1 form-control-label col-md-3"><strong>Tiêu đề</strong></label>
+                        @Html.EditorFor(model => model.TieuDe, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
+                        @Html.ValidationMessageFor(model => model.TieuDe, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row form-group my-3">
+                        <label class="pr-1 form-control-label col-md-3"><strong>Nội dung</strong></label>
+                        @Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
+                        @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row form-group my-3 col-6">
+                        <label class="pr-1 form-control-label col-md-3"><strong>Danh mục</strong></label>
+                        @Html.DropDownList("MaDanhMuc", null, htmlAttributes: new { @class = "col-md-6 form-control" })
+                        @Html.ValidationMessageFor(model => model.MaDanhMuc, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row form-group my-3">
+                        <label class="pr-1 form-control-label col-md-3"><strong>Ảnh bìa</strong></label>
+                        <div class="col-12 col-md-9"><input type="file" name="file" class="form-control-file"></div>
+                    </div>
+
+                    <div class="row form-group my-3">
+                        <div class="col-md-offset-2 col-md-5">
+                            <i class="menu-icon fa fa-arrow-circle-left"></i>
+                            @Html.ActionLink("Quay lại", "Index")
+                        </div>
+
+                        <div class="col-md-offset-2 col-md-5">
+                            <input type="submit" value="Tạo mới" class="btn btn-success" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

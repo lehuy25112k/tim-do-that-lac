@@ -48,13 +48,13 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="row_@item.MaDanhMuc">
-                                            <td>@item.TenDanhMuc</td>
-                                            <td>@item.NgayTao</td>
+                                        <tr id="row_@item?.MaDanhMuc">
+                                            <td>@item?.TenDanhMuc</td>
+                                            <td>@item?.NgayTao</td>
                                             <td>
-                                                <a href="/Admin/DanhMuc/Details/@item.MaDanhMuc" class="btn-sm btn-info">Xem chi tiết</a>
+                                                <a href="/Admin/DanhMuc/Details/@item?.MaDanhMuc" class="btn-sm btn-info">Xem chi tiết</a>
 
-                                                <a href="/Admin/DanhMuc/Edit/@item.MaDanhMuc" class="btn-sm btn-success">Chỉnh sửa</a>
+                                                <a href="/Admin/DanhMuc/Edit/@item?.MaDanhMuc" class="btn-sm btn-success">Chỉnh sửa</a>
 
                                                 @Ajax.ActionLink("Xoá", "Delete", new { @id = item.MaDanhMuc }, new AjaxOptions
                                            {

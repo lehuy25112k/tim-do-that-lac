@@ -17,6 +17,10 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.MaTaiKhoan)
+                    @Html.HiddenFor(model => model.MatKhau)
+                    @Html.HiddenFor(model => model.AnhDaiDien)
+                    @Html.HiddenFor(model => model.AnhTheSV)
+                    @Html.HiddenFor(model => model.NgayTao)
 
                     <div class="row form-group">
                         <label class="pr-1  form-control-label col-md-3"><strong>Tên</strong></label>
@@ -34,12 +38,6 @@
                         <label class="pr-1  form-control-label col-md-3"><strong>Email</strong></label>
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="row form-group">
-                        <label class="pr-1  form-control-label col-md-3"><strong>Mật khẩu</strong></label>
-                        @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "col-md-6 form-control", @type = "password" } })
-                        @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="row form-group">

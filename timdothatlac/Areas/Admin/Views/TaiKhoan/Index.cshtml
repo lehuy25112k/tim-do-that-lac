@@ -51,10 +51,10 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                    <tr id="row_@item.MaTaiKhoan">
-                                        <td>@item.Email</td>
-                                        <td>@item.Ten</td>
-                                        <td>@item.MaSinhVien</td>
+                                    <tr id="row_@item?.MaTaiKhoan">
+                                        <td>@item?.Email</td>
+                                        <td>@item?.Ten</td>
+                                        <td>@item?.MaSinhVien</td>
                                         <td>@Html.Raw(item.GioiTinh ? "Nam" : "Nữ")</td>
                                         <td><a href="#" class="btn-active" data-id="@item.MaTaiKhoan">@Html.Raw(item.TrangThai ? "Kích hoạt" : "Khoá")</a></td>
                                         <td>

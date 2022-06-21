@@ -13,17 +13,24 @@
             </div>
 
             <div class="card-body card-block ml-3">
-                @using (Html.BeginForm("Edit", "DanhMuc", FormMethod.Post))
+                @using (Html.BeginForm("Edit", "DanhMuc", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.MaDanhMuc)
+                    @Html.HiddenFor(model => model.NgayTao)
+                    @Html.HiddenFor(model => model.AnhMinhHoa)
 
                     <div class="row form-group">
                         <label class="pr-1  form-control-label col-md-3"><strong>Tên danh mục</strong></label>
                         @Html.EditorFor(model => model.TenDanhMuc, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
                         @Html.ValidationMessageFor(model => model.TenDanhMuc, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Ảnh minh hoạ</strong></label>
+                        <div class="col-12 col-md-9"><input type="file" name="file" class="form-control-file"></div>
                     </div>
 
                     <div class="row form-group">

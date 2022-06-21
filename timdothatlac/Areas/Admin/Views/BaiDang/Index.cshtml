@@ -52,7 +52,7 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="row_@item.MaBaiDang">
+                                        <tr id="row_@item?.MaBaiDang">
                                             <td>@item.TieuDe</td>
                                             <td>@item.NoiDung</td>
                                             <td>@item.TaiKhoan.Ten</td>

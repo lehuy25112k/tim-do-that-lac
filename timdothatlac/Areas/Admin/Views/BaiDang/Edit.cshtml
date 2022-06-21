@@ -1,5 +1,7 @@
 ﻿@model ModalEF.EF.BaiDang
 @{
+    /**/
+
     ViewBag.Title = "Chỉnh sửa bài đăng";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
@@ -19,6 +21,9 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.MaBaiDang)
                     @Html.HiddenFor(model => model.MaTaiKhoan)
+                    @Html.HiddenFor(model => model.MaAnhDinhKem)
+                    @Html.HiddenFor(model => model.NgayTao)
+                    @Html.HiddenFor(model => model.NgayDuyet)
 
                     <div class="row form-group">
                         <label class="pr-1  form-control-label col-md-3"><strong>Người tạo</strong></label>
