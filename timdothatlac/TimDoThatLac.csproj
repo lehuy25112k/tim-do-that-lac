@@ -135,6 +135,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BaiDangController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DangKyNhanLaiController.cs" />
     <Compile Include="Areas\Admin\Controllers\DanhMucController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeDashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\TaiKhoanController.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Common\LoginUserSession.cs" />
     <Compile Include="Controllers\BaiDangsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DangKyNhanLaisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
@@ -431,6 +433,11 @@
     <Content Include="Areas\Admin\Views\DanhMuc\Create.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMuc\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMuc\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DangKyNhanLai\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DangKyNhanLai\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DangKyNhanLai\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DangKyNhanLai\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DangKyNhanLai\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -465,6 +472,7 @@
     <Content Include="Views\BaiDangs\Index.cshtml" />
     <Content Include="Views\BaiDangs\Create.cshtml" />
     <Content Include="Views\BaiDangs\Details.cshtml" />
+    <Content Include="Views\DangKyNhanLais\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

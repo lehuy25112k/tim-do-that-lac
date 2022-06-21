@@ -17,7 +17,7 @@ namespace timdothatlac.Controllers
         private ContextDB db = new ContextDB();
         public AnhDinhKem adk = new AnhDinhKem();
 
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 9)
         {
             var dao = new BaiDangDao();
             var model = dao.ListAllPagings(searchString, page, pageSize);
