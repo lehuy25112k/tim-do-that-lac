@@ -1,18 +1,14 @@
 ﻿@model ModalEF.EF.TaiKhoan
 @{
-    ViewBag.Title = "Chỉnh sửa";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Chỉnh sửa thông tin cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header">
-                <strong>Chỉnh sửa tài khoản</strong>
-            </div>
-
-            <div class="card-body card-block ml-3">
-                @using (Html.BeginForm("Edit", "TaiKhoan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        <div class="card d-flex">
+            <div class="card-body card-block col-8 align-self-center">
+                @using (Html.BeginForm("Edit", "TaiKhoans", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -21,72 +17,64 @@
                     @Html.HiddenFor(model => model.AnhDaiDien)
                     @Html.HiddenFor(model => model.AnhTheSV)
                     @Html.HiddenFor(model => model.NgayTao)
+                    @Html.HiddenFor(model => model.TrangThai)
+                    @Html.HiddenFor(model => model.MaQuyen)
                     @Html.HiddenFor(model => model.GioiTinh)
+                    @Html.HiddenFor(model => model.Email)
+                    @Html.HiddenFor(model => model.MaSinhVien)
 
-                    <div class="row form-group">
+                    <div class="row form-group mt-3">
                         <label class="pr-1  form-control-label col-md-3"><strong>Tên</strong></label>
                         @Html.EditorFor(model => model.Ten, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
                         @Html.ValidationMessageFor(model => model.Ten, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="row form-group">
+                    <div class="row form-group mt-3">
                         <label class="pr-1  form-control-label col-md-3"><strong>Mã sinh viên</strong></label>
-                        @Html.EditorFor(model => model.MaSinhVien, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
+                        @Html.EditorFor(model => model.MaSinhVien, new { htmlAttributes = new { @class = "col-md-6 form-control", @disabled = "" } })
                         @Html.ValidationMessageFor(model => model.MaSinhVien, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="row form-group">
+                    <div class="row form-group mt-3">
                         <label class="pr-1  form-control-label col-md-3"><strong>Email</strong></label>
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "col-md-6 form-control", @disabled = "" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="row form-group">
+                    <div class="row form-group mt-3">
                         <label class="pr-1  form-control-label col-md-3"><strong>Giới tính</strong></label>
                         <div class="col-md-2">
                             @Html.RadioButtonFor(model => model.GioiTinh, "True")
                             Nam
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 mt-3">
                             @Html.RadioButtonFor(model => model.GioiTinh, "False")
                             Nữ
                         </div>
                         @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="row form-group">
+                    <div class="row form-group mt-3">
                         <label class="pr-1  form-control-label col-md-3"><strong>Số điện thoại</strong></label>
                         @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
                         @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="row form-group">
+                    <div class="row form-group mt-3">
                         <label class="pr-1  form-control-label col-md-3"><strong>Ngày sinh</strong></label>
                         @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
                         @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="row form-group">
-                        <label class="pr-1  form-control-label col-md-3"><strong>Loại tài khoản</strong></label>
-                        @Html.DropDownList("MaQuyen", null, htmlAttributes: new { @class = "col-md-2 form-control" })
-                        @Html.ValidationMessageFor(model => model.MaQuyen, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="row form-group">
-                        <label class="pr-1  form-control-label col-md-3"><strong>Trạng thái</strong></label>
-                        @Html.CheckBoxFor(model => model.TrangThai, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
-                        @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="row form-group">
+                    <div class="row form-group mt-3">
                         <label class="pr-1  form-control-label col-md-3"><strong>Ảnh đại diện</strong></label>
                         <div class="col-12 col-md-9"><input type="file" name="file" class="form-control-file"></div>
                     </div>
 
-                    <div class="row form-group">
+                    <div class="row form-group mt-3">
                         <div class="col-md-offset-2 col-md-5">
                             <i class="menu-icon fa fa-arrow-circle-left"></i>
-                            @Html.ActionLink("Quay lại", "Index")
+                            @Html.ActionLink("Quay lại", "Index", new {id = Model.MaTaiKhoan})
                         </div>
                         <div class="col-md-offset-2 col-md-5">
                             <input type="submit" value="Lưu" class="btn btn-success" />

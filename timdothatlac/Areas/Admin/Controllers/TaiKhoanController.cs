@@ -41,22 +41,34 @@ namespace timdothatlac.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new TaiKhoanDao();
-
-                try
+                if(taiKhoan.Email == null)
                 {
-                    string path = Server.MapPath("~/FileUpload");
-                    if(file != null)
+                    ModelState.AddModelError("", "Vui lòng không bỏ trống Email");
+                }
+                else if(taiKhoan.MatKhau == null)
+                {
+                    ModelState.AddModelError("", "Vui lòng không bỏ trống Mật khẩu");
+                }
+                else
+                {
+                    try
                     {
-                        string fileName = Path.GetFileName(file.FileName);
-                        string pathFull = Path.Combine(path, fileName);
-                        file.SaveAs(pathFull);
-                        taiKhoan.AnhDaiDien = file.FileName;
+                        string path = Server.MapPath("~/FileUpload");
+                        if (file != null)
+                        {
+                            string fileName = Path.GetFileName(file.FileName);
+                            string pathFull = Path.Combine(path, fileName);
+                            file.SaveAs(pathFull);
+                            taiKhoan.AnhDaiDien = file.FileName;
+                        }
+                        else
+                        {
+                            taiKhoan.AnhDaiDien = null;
+                        }
                     }
-                    else
-                    {
-                        taiKhoan.AnhDaiDien = null;
-                    }
-                } catch (Exception e) { }
+                    catch (Exception e) { }
+                }
+                
 
                 var encryptedMd5Pass = Encryptor.MD5Hash(taiKhoan.MatKhau);
                 taiKhoan.MatKhau = encryptedMd5Pass;

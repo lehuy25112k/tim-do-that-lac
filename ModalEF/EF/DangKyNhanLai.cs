@@ -16,12 +16,16 @@ namespace ModalEF.EF
 
         public int? MaTaiKhoan { get; set; }
 
+        [Required]
         [StringLength(300)]
         public string LoiNhan { get; set; }
 
         public DateTime? NgayDangKyNhan { get; set; }
 
         public bool? TrangThai { get; set; }
+
+        [StringLength(50)]
+        public string AnhMinhChung { get; set; }
 
         public virtual BaiDang BaiDang { get; set; }
 

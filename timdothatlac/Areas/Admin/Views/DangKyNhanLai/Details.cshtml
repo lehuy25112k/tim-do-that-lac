@@ -1,59 +1,77 @@
 ﻿@model ModalEF.EF.DangKyNhanLai
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết đăng ký nhận";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>DangKyNhanLai</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BaiDang.TieuDe)
-        </dt>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong>Chi tiết bài đăng</strong>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.BaiDang.TieuDe)
-        </dd>
+            <div class="card-body card-block ml-3">
+                @using (Html.BeginForm("Details", "DangKyNhanLai", FormMethod.Get))
+                {
+                    @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TaiKhoan.MaSinhVien)
-        </dt>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <dd>
-            @Html.DisplayFor(model => model.TaiKhoan.MaSinhVien)
-        </dd>
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Người đăng ký</strong></label>
+                        @Html.DropDownList("MaTaiKhoan", null, htmlAttributes: new { @class = "col-md-6 form-control", @disabled = "" })
+                        @Html.ValidationMessageFor(model => model.MaTaiKhoan, "", new { @class = "text-danger" })
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LoiNhan)
-        </dt>
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Bài đăng</strong></label>
+                        <input value="@Html.Raw(Model.BaiDang.TieuDe)" disabled class="col-md-6 form-control" />
+                        @Html.ValidationMessageFor(model => model.MaBaiDang, "", new { @class = "text-danger" })
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.LoiNhan)
-        </dd>
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Lời nhắn</strong></label>
+                        @Html.EditorFor(model => model.LoiNhan, new { htmlAttributes = new { @class = "col-md-6 form-control", @disabled = "" } })
+                        @Html.ValidationMessageFor(model => model.LoiNhan, "", new { @class = "text-danger" })
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayDangKyNhan)
-        </dt>
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Ngày đăng ký</strong></label>
+                        @Html.EditorFor(model => model.NgayDangKyNhan, new { htmlAttributes = new { @class = "col-md-6 form-control", @disabled = "" } })
+                        @Html.ValidationMessageFor(model => model.NgayDangKyNhan, "", new { @class = "text-danger" })
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.NgayDangKyNhan)
-        </dd>
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Ảnh minh chứng</strong></label>
+                        <div>
+                            @{
+                                if (Model.AnhMinhChung != null)
+                                {
+                                    <img src="~/FileUpload/@Model.AnhMinhChung" style="height: 240px; width: 240px" />
+                                }
+                                else
+                                {
+                                    <p>Không có ảnh minh chứng</p>
+                                }
+                            }
+                        </div>
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-
-    </dl>
+                    <div class="row form-group">
+                        <div class="col-md-offset-2 col-md-5">
+                            <i class="menu-icon fa fa-arrow-circle-left"></i>
+                            @Html.ActionLink("Quay lại", "Index")
+                        </div>
+                        <div class="col-md-offset-2 col-md-5">
+                            <a href="/Admin/BaiDang/Details/@Model.MaBaiDang" class="btn btn-success">Xem chi tiết bài đăng</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDangKyNhan }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

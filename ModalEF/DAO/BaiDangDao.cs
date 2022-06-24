@@ -41,6 +41,17 @@ namespace ModalEF.DAO
             return model.OrderByDescending(x => x.NgayTao).ToPagedList(page, pageSize);
         }
 
+        public IEnumerable<DangKyNhanLai> ListAllPagingDKN(string searchString, int page, int pageSize)
+        {
+            IQueryable<DangKyNhanLai> model = db.DangKyNhanLais;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.LoiNhan.Contains(searchString));
+            }
+
+            return model.OrderByDescending(x => x.NgayDangKyNhan).ToPagedList(page, pageSize);
+        }
+
         //Đổi trạng thái
         public bool ChangeStatus(int id)
         {

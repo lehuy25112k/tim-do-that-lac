@@ -174,14 +174,14 @@
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             @{
-                                if (session?.Avatar == null)
+                                if (session.Avatar == null)
                                 {
                                     <img class="user-avatar rounded-circle" src="~/Areas/Admin/Assets/images/avatar-default.png">
 
                                 }
                                 else
                                 {
-                                    <img class="user-avatar rounded-circle" src="~/FileUpload/@session?.Avatar">
+                                    <img class="user-avatar rounded-circle" src="~/FileUpload/@session.Avatar">
                                 }
                             }
                         </a>

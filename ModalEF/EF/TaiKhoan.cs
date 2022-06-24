@@ -32,12 +32,14 @@ namespace ModalEF.EF
 
         public bool GioiTinh { get; set; }
 
+        [EmailAddress]
         [StringLength(50)]
         public string Email { get; set; }
 
         [StringLength(256)]
         public string MatKhau { get; set; }
 
+        [Phone]
         [StringLength(10)]
         public string SDT { get; set; }
 

@@ -41,6 +41,11 @@ namespace timdothatlac.Controllers
             }
             return View(taiKhoan);
         }
-        
+
+        public ActionResult Logout()
+        {
+            Session[Constant.USER_SESSION] = null;
+            return RedirectToAction("Index", "Login", routeValues: new { Area = "" });
+        }
     }
 }

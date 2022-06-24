@@ -20,7 +20,12 @@
                         @Html.TextAreaFor(model => model.LoiNhan, new { htmlAttributes = new { @class = "col-md-6 form-control" } })
                         @Html.ValidationMessageFor(model => model.LoiNhan, "", new { @class = "text-danger" })
                     </div>
-                    
+
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Ảnh minh chứng (nếu có)</strong></label>
+                        <div class="col-12 col-md-9"><input type="file" name="file" class="form-control-file"></div>
+                    </div>
+
                     <div class="row form-group my-3">
                         <div class="col-md-offset-2 col-md-5">
                             <i class="menu-icon fa fa-arrow-circle-left"></i>

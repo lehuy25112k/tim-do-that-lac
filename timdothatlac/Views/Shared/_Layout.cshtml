@@ -27,7 +27,7 @@
                     <i class="fa fa-envelope mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="https://www.facebook.com/LeHuy79999">admin@timdothatlac.vn</a>
                     <i class="fa fa-phone mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">0786 006 726</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">0786 006 725</a>
                 </div>
                 <div>
                     <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
@@ -72,11 +72,11 @@
                         var session = (timdothatlac.Common.LoginUserSession)Session[timdothatlac.Common.Constant.USER_SESSION];
                         if (session != null)
                         {
-                            <a class="nav-icon position-relative text-decoration-none" href="@Url.Action("Index", "TaiKhoan")">
+                            <a class="nav-icon position-relative text-decoration-none" href="@Url.Action("Index", "TaiKhoans", new { id = session.MaUser})">
                                 <small>@session.TenUser</small>
                                 <i class="fa fa-fw fa-user text-dark mr-3"></i>
                             </a>
-
+                            @Html.ActionLink("Đăng xuất", "Logout", "Login", new { @style = "color:#ff0000" })
                         }
                         else
                         {
@@ -106,7 +106,7 @@
                         </li>
                         <li>
                             <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none" href="">0343 599 589</a>
+                            <a class="text-decoration-none" href="">078 6006 725</a>
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>

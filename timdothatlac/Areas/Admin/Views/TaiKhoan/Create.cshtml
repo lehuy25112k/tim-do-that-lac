@@ -83,6 +83,9 @@
                         <label class="pr-1  form-control-label col-md-3"><strong>Ảnh đại diện</strong></label>
                         <div class="col-12 col-md-9"><input type="file" name="file" class="form-control-file"></div>
                     </div>
+                    <div>
+                        @Html.ValidationSummary(false,"", new {@class = "text-danger"})
+                    </div>
 
                     <div class="row form-group">
                         <div class="col-md-offset-2 col-md-5">

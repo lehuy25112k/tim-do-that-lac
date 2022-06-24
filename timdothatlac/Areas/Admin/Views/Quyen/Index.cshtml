@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ModalEF.EF.Quyen>
+
+@{
+    ViewBag.Title = "Quyền hệ thống";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quyền hệ thống</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Tên quyền
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenQuyen)
+        </td>
+    </tr>
+}
+
+</table>

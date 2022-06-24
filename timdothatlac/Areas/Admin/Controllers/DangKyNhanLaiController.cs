@@ -6,122 +6,41 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ModalEF.DAO;
 using ModalEF.EF;
+using timdothatlac.Common;
 
 namespace timdothatlac.Areas.Admin.Controllers
 {
-    public class DangKyNhanLaiController : Controller
+    public class DangKyNhanLaiController : BaseController
     {
         private ContextDB db = new ContextDB();
 
-        // GET: Admin/DangKyNhanLai
-        public ActionResult Index()
+        //Phân trang list, default = 10
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
-            var dangKyNhanLais = db.DangKyNhanLais.Include(d => d.BaiDang).Include(d => d.TaiKhoan);
-            return View(dangKyNhanLais.ToList());
+            var dao = new BaiDangDao();
+            var model = dao.ListAllPagingDKN(searchString, page, pageSize);
+
+            ViewBag.SearchString = searchString;
+
+            return View(model);
         }
 
-        // GET: Admin/DangKyNhanLai/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DangKyNhanLai dangKyNhanLai = db.DangKyNhanLais.Find(id);
-            if (dangKyNhanLai == null)
+            DangKyNhanLai dknl = db.DangKyNhanLais.Find(id);
+            if (dknl == null)
             {
                 return HttpNotFound();
             }
-            return View(dangKyNhanLai);
-        }
-
-        // GET: Admin/DangKyNhanLai/Create
-        public ActionResult Create()
-        {
             ViewBag.MaBaiDang = new SelectList(db.BaiDangs, "MaBaiDang", "TieuDe");
-            ViewBag.MaTaiKhoan = new SelectList(db.TaiKhoans, "MaTaiKhoan", "MaSinhVien");
-            return View();
-        }
-
-        // POST: Admin/DangKyNhanLai/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaDangKyNhan,MaBaiDang,MaTaiKhoan,LoiNhan,NgayDangKyNhan,TrangThai")] DangKyNhanLai dangKyNhanLai)
-        {
-            if (ModelState.IsValid)
-            {
-                db.DangKyNhanLais.Add(dangKyNhanLai);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.MaBaiDang = new SelectList(db.BaiDangs, "MaBaiDang", "TieuDe", dangKyNhanLai.MaBaiDang);
-            ViewBag.MaTaiKhoan = new SelectList(db.TaiKhoans, "MaTaiKhoan", "MaSinhVien", dangKyNhanLai.MaTaiKhoan);
-            return View(dangKyNhanLai);
-        }
-
-        // GET: Admin/DangKyNhanLai/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DangKyNhanLai dangKyNhanLai = db.DangKyNhanLais.Find(id);
-            if (dangKyNhanLai == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.MaBaiDang = new SelectList(db.BaiDangs, "MaBaiDang", "TieuDe", dangKyNhanLai.MaBaiDang);
-            ViewBag.MaTaiKhoan = new SelectList(db.TaiKhoans, "MaTaiKhoan", "MaSinhVien", dangKyNhanLai.MaTaiKhoan);
-            return View(dangKyNhanLai);
-        }
-
-        // POST: Admin/DangKyNhanLai/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDangKyNhan,MaBaiDang,MaTaiKhoan,LoiNhan,NgayDangKyNhan,TrangThai")] DangKyNhanLai dangKyNhanLai)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(dangKyNhanLai).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.MaBaiDang = new SelectList(db.BaiDangs, "MaBaiDang", "TieuDe", dangKyNhanLai.MaBaiDang);
-            ViewBag.MaTaiKhoan = new SelectList(db.TaiKhoans, "MaTaiKhoan", "MaSinhVien", dangKyNhanLai.MaTaiKhoan);
-            return View(dangKyNhanLai);
-        }
-
-        // GET: Admin/DangKyNhanLai/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DangKyNhanLai dangKyNhanLai = db.DangKyNhanLais.Find(id);
-            if (dangKyNhanLai == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dangKyNhanLai);
-        }
-
-        // POST: Admin/DangKyNhanLai/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            DangKyNhanLai dangKyNhanLai = db.DangKyNhanLais.Find(id);
-            db.DangKyNhanLais.Remove(dangKyNhanLai);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            ViewBag.MaTaiKhoan = new SelectList(db.TaiKhoans, "MaTaiKhoan", "Ten");
+            return View(dknl);
         }
 
         protected override void Dispose(bool disposing)
@@ -131,6 +50,13 @@ namespace timdothatlac.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //Đăng xuất
+        public ActionResult Logout()
+        {
+            Session[Constant.USER_SESSION] = null;
+            return RedirectToAction("Index", "Login", routeValues: new { Area = "" });
         }
     }
 }

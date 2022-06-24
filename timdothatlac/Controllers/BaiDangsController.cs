@@ -9,10 +9,11 @@ using System.Web;
 using System.Web.Mvc;
 using ModalEF.DAO;
 using ModalEF.EF;
+using timdothatlac.Common;
 
 namespace timdothatlac.Controllers
 {
-    public class BaiDangsController : BaseController
+    public class BaiDangsController : Controller
     {
         private ContextDB db = new ContextDB();
         public AnhDinhKem adk = new AnhDinhKem();
@@ -99,6 +100,12 @@ namespace timdothatlac.Controllers
             ViewBag.MaTaiKhoan = new SelectList(db.TaiKhoans, "MaTaiKhoan", "Ten", baiDang.MaTaiKhoan);
             ViewBag.MaTrangThaiBaiDang = new SelectList(db.TrangThaiBaiDangs, "MaTrangThaiBaiDang", "TenTrangThai", baiDang.MaTrangThaiBaiDang);
             return View(baiDang);
+        }
+
+        public ActionResult Logout()
+        {
+            Session[Constant.USER_SESSION] = null;
+            return RedirectToAction("Index", "Login", routeValues: new { Area = "" });
         }
     }
 }
