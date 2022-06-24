@@ -38,42 +38,46 @@ namespace timdothatlac.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(TaiKhoan taiKhoan, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            if (String.IsNullOrEmpty(taiKhoan.Email))
+            {
+                ModelState.AddModelError("", "Vui lòng không bỏ trống Email!");
+            }
+            else if (String.IsNullOrEmpty(taiKhoan.MatKhau))
+            {
+                ModelState.AddModelError("", "Vui lòng không bỏ trống Mật khẩu!");
+            }
+            else if (taiKhoan.NgaySinh >= DateTime.Now)
+            {
+                ModelState.AddModelError("", "Ngày sinh không được lớn hơn ngày hiện tại!");
+            }
+            else if (taiKhoan.NgaySinh == null)
+            {
+                ModelState.AddModelError("", "Ngày sinh không được bỏ trống!");
+            }
+            else if (ModelState.IsValid)
             {
                 var dao = new TaiKhoanDao();
-                if(taiKhoan.Email == null)
+
+                try
                 {
-                    ModelState.AddModelError("", "Vui lòng không bỏ trống Email");
-                }
-                else if(taiKhoan.MatKhau == null)
-                {
-                    ModelState.AddModelError("", "Vui lòng không bỏ trống Mật khẩu");
-                }
-                else
-                {
-                    try
+                    string path = Server.MapPath("~/FileUpload");
+                    if (file != null)
                     {
-                        string path = Server.MapPath("~/FileUpload");
-                        if (file != null)
-                        {
-                            string fileName = Path.GetFileName(file.FileName);
-                            string pathFull = Path.Combine(path, fileName);
-                            file.SaveAs(pathFull);
-                            taiKhoan.AnhDaiDien = file.FileName;
-                        }
-                        else
-                        {
-                            taiKhoan.AnhDaiDien = null;
-                        }
+                        string fileName = Path.GetFileName(file.FileName);
+                        string pathFull = Path.Combine(path, fileName);
+                        file.SaveAs(pathFull);
+                        taiKhoan.AnhDaiDien = file.FileName;
                     }
-                    catch (Exception e) { }
+                    else
+                    {
+                        taiKhoan.AnhDaiDien = null;
+                    }
                 }
-                
+                catch (Exception e) { }
 
                 var encryptedMd5Pass = Encryptor.MD5Hash(taiKhoan.MatKhau);
                 taiKhoan.MatKhau = encryptedMd5Pass;
                 taiKhoan.NgayTao = DateTime.Now;
-               
 
                 long id = dao.Insert(taiKhoan);
                 if (id > 0)
@@ -87,7 +91,7 @@ namespace timdothatlac.Areas.Admin.Controllers
                 }
             }
             ViewBag.MaQuyen = new SelectList(db.Quyens, "MaQuyen", "TenQuyen", taiKhoan.MaQuyen);
-            return View("Index");
+            return View("Create");
         }
 
         //Sửa
@@ -122,7 +126,7 @@ namespace timdothatlac.Areas.Admin.Controllers
                         file.SaveAs(pathFull);
                         taiKhoan.AnhDaiDien = file.FileName;
                     }
-                  
+
                     db.Entry(taiKhoan).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");

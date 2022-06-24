@@ -33,6 +33,20 @@
                         @Html.ValidationMessageFor(model => model.MaDanhMuc, "", new { @class = "text-danger" })
                     </div>
 
+
+                    <div class="row form-group">
+                        <label class="pr-1  form-control-label col-md-3"><strong>Loại bài đăng</strong></label>
+                        <div class="col-md-2">
+                            @Html.RadioButtonFor(model => model.MaTrangThaiBaiDang, "1")
+                            Mất đồ
+                        </div>
+                        <div class="col-md-2">
+                            @Html.RadioButtonFor(model => model.MaTrangThaiBaiDang, "2")
+                            Tìm đồ
+                        </div>
+                        @Html.ValidationMessageFor(model => model.MaTrangThaiBaiDang, "", new { @class = "text-danger" })
+                    </div>
+
                     <div class="row form-group my-3">
                         <label class="pr-1 form-control-label col-md-3"><strong>Ảnh bìa</strong></label>
                         <div class="col-12 col-md-9"><input type="file" name="file" class="form-control-file"></div>
