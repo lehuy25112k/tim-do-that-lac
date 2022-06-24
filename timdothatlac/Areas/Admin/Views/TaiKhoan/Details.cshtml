@@ -44,12 +44,12 @@
                     <div class="row form-group">
                         <label class="pr-1  form-control-label col-md-3"><strong>Số điện thoại</strong></label>
                         @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "col-md-7 form-control", @disabled = "" } })
-                        @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                        @*@Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })*@
                     </div>
 
                     <div class="row form-group">
                         <label class="pr-1  form-control-label col-md-3"><strong>Ngày sinh</strong></label>
-                        <input value="@Html.Raw(Model.NgaySinh.ToString().Substring(0,9))" class="col-md-7 form-control" disabled />
+                        <input value="@Html.Raw(Model.NgaySinh.ToString().Substring(0,10))" class="col-md-7 form-control" disabled />
                         @*@Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "col-md-7 form-control", @disabled = "" } })*@
                         @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
                     </div>
